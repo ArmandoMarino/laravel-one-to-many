@@ -12,7 +12,7 @@
     @csrf
     <div class="row">
         {{-- TITLE --}}
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input placeholder="Insert Title here..." name="title" type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title', $project->title)}}" minlength="5" maxlength="50" required>
@@ -20,7 +20,7 @@
         </div>
 
         {{-- SLUG --}}
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="mb-3">
                 <label for="slug" class="form-label">Slug's Title</label>
                 <input type="text" class="form-control" id="slug" value="{{ Str::slug(old('title', $project->title),'-')}}" disabled>
@@ -34,6 +34,21 @@
                 <input placeholder="Insert URL image here..." name="image" type="url" class="form-control @error('image') is-invalid @enderror" id="image" value="{{old('image', $project->image)}}" required>
             </div>
         </div> --}}
+
+        {{-- TYPE --}}
+        <div class="col-md-4">
+            <label for="type_id" class="form-label">Type</label>
+            <select name="type_id" class="form-select" id="type_id">
+                <option value="">Undefined</option>
+                @foreach ($types as  $type)
+                    {{-- Controllo se la relazione tra gli id è uguale per farla rimanere selezionata --}}
+                    <option @if($project->type?->id == $type->id) selected @endif value="{{ $type->id }}">
+                        {{ $type->label }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
 
         {{-- UPLOAD IMG --}}
         <div class="col-md-6">
