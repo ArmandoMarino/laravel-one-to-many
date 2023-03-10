@@ -42,7 +42,7 @@
                 <option value="">Undefined</option>
                 @foreach ($types as  $type)
                     {{-- Controllo se la relazione tra gli id è uguale per farla rimanere selezionata --}}
-                    <option @if($project->type?->id == $type->id) selected @endif value="{{ $type->id }}">
+                    <option @if(old('type_id', $project->type?->id) == $type->id) selected @endif value="{{ $type->id }}">
                         {{ $type->label }}
                     </option>
                 @endforeach
