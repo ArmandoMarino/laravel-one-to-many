@@ -80,6 +80,21 @@
     </tbody>
   </table>
 
+  <div class="row">
+    @foreach ($types as  $type)
+    <div class="col">
+      <h3>{{$type->label }}</h3>
+      <p> ({{ count($type->projects) }}) </p>
+      {{-- Per ogni Type nel Projects come Project --}}
+      @foreach ($type->projects as  $project)
+         <a href="{{route('admin.projects.show', $project->id )}}">{{ $project->title }}</a> 
+      @endforeach
+    </div>
+
+    @endforeach
+
+  </div>
+
   {{-- PAGINATION se project ha la pagination  --}}
   <div class="d-flex">
     @if($projects->hasPages())
