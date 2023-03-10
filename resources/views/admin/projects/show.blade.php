@@ -16,13 +16,14 @@
     <p>{{ $project->description }}</p>
     <div class="d-flex justify-content-between" >
         <div>
-            <p>Creato il : <time>{{$project->created_at}} </time></p>
-            <p>Aggiornato il : <time>{{$project->updated_at}} </time></p>
-            <p>Stato : {{ $project->is_published ? 'Pubblicato' : 'Bozza'}}</p>
+            <p>Created at : <i><time>{{$project->created_at}} </time></i></p>
+            <p>Updated at :  <i><time>{{$project->updated_at}} </time></i></p>
+            <p>Status : <strong>{{ $project->is_published ? 'Published' : 'Draft'}}</strong></p>
+            <p>Type : {{ $project->type?->label ? $project->type->label : 'Undefined'}}</p>
         </div>
     </div>
 
-    <div class="d-flex justify-content-end" >
+    <div class="d-flex justify-content-end mb-4" >
         {{-- BOTTON TO PROJECTS INDEX --}}
         <a class="btn btn-secondary me-2" href="{{route('admin.projects.index')}}">
             <i class="me-2 fa-solid fa-left-long"></i> Back
