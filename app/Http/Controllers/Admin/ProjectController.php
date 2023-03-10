@@ -30,7 +30,10 @@ class ProjectController extends Controller
     {
         // Paginator imported in RouteServiceProvider and later use function here, the number is the number of elements into page
         $projects = Project::orderBy('updated_at', 'DESC')->simplePaginate(10);
-        return view('admin.projects.index', compact('projects'));
+
+        $types = Type::all();
+
+        return view('admin.projects.index', compact('projects', 'types'));
     }
 
     /**

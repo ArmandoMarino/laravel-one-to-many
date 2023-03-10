@@ -31,7 +31,13 @@
             <td>{{$project->title }}</td>
             <td>{{$project->slug }}</td>
             {{--! Il ? NULLSAFE OPERATOR che impesice la rottura in caso di dato NULL dal DB --}}
-            <td>{{$project->type?->label}}</td>
+            {{-- {{$project->type?->label}} --}}
+            <td>
+              @if ($project->type)
+              <span style="background-color : {{$project->type->color}}" class="badge">{{$project->type?->label}}</span>
+              @else
+              @endif
+            </td>
             <td>
               <form method="POST" action="{{route('admin.projects.toggle', $project->id)}}">
                 @method('PATCH')
@@ -73,6 +79,21 @@
         @endforelse
     </tbody>
   </table>
+
+  <div class="row">
+    @foreach ($types as  $type)
+    <div class="col">
+      <h3>{{$type->label }}</h3>
+      <p> ({{ count($type->projects) }}) </p>
+      {{-- Per ogni Type nel Projects come Project --}}
+      @foreach ($type->projects as  $project)
+         <a href="{{route('admin.projects.show', $project->id )}}">{{ $project->title }}</a> 
+      @endforeach
+    </div>
+
+    @endforeach
+
+  </div>
 
   {{-- PAGINATION se project ha la pagination  --}}
   <div class="d-flex">
