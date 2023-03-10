@@ -167,9 +167,13 @@ class ProjectController extends Controller
      */
     public function destroy(project $project)
     {
+        // SE esisiste un'immagine del project la elimino dallo storage
+        if ($project->image) Storage::delete($project->image);
+
         $project->delete();
         return to_route('admin.projects.index')->with('type', 'success')->with('message', "Project : $project->title saved successfully.");
     }
+
 
     // Nuova funzione personalizzata che "TOGGOLA" il is_published del project
     public function togglePublishProject(Project $project)
