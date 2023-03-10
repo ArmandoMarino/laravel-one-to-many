@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::table('projects', function (Blueprint $table) {
             // Definsco la colonna
             $table->unsignedBigInteger('type_id')->nullable()->after('id');
-            // Definisco la colonna con cui dovrò avere una relazione ( si riferisce dellla colonna id sulla tabella types)
+            // Definisco la colonna con cui dovrò avere una relazione ( si riferisce dellla colonna id sulla tabella types e se voglio definisco la tabella con il nome se non l'hanno chiamata come convenzione)
             $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+
+
+            // CON UNA SOLA RIGA CON LA FUNZIONE CONSTRAINED
+            // $table->foreignId('type_id')->after('id')->nullable()->constrained()->onDelete('set null');
         });
     }
 
