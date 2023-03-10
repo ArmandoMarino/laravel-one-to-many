@@ -31,7 +31,13 @@
             <td>{{$project->title }}</td>
             <td>{{$project->slug }}</td>
             {{--! Il ? NULLSAFE OPERATOR che impesice la rottura in caso di dato NULL dal DB --}}
-            <td>{{$project->type?->label}}</td>
+            {{-- {{$project->type?->label}} --}}
+            <td>
+              @if ($project->type)
+              <span style="background-color : {{$project->type->color}}" class="badge">{{$project->type?->label}}</span>
+              @else
+              @endif
+            </td>
             <td>
               <form method="POST" action="{{route('admin.projects.toggle', $project->id)}}">
                 @method('PATCH')
