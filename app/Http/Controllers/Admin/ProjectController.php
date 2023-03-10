@@ -57,8 +57,11 @@ class ProjectController extends Controller
                 'title' => 'required|string|unique:projects|min:5|max:50',
                 'description' => 'required|string',
                 'image' => 'nullable|image|mimes:jpeg,jpg,png',
+                // Controllo se esiste quell'id sulla tabella Types  (esiste:tabella,colonna)
+                'type_id' => 'nullable|exists:types,id'
             ],
             [
+                // ERRORI
                 'title.required' => 'Title field is required',
                 'title.unique' => "Project\'s title : $request->title has already been taken.",
                 'title.min' => 'The title field must have at least 5 characters',
@@ -66,7 +69,7 @@ class ProjectController extends Controller
                 'description.required' => 'Description field it cannot be empty',
                 'image.image' => 'Image is not Valid.',
                 'image.mimes' => 'Accepted extensions : jpeg,jpg,png.',
-
+                'type_id' => 'Invalid Type'
             ]
         );
 
@@ -123,15 +126,18 @@ class ProjectController extends Controller
                 'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id), 'min:5', 'max:50'],
                 'description' => 'required|string',
                 'image' => 'nullable|url',
+                // Controllo se esiste quell'id sulla tabella Types  (esiste:tabella,colonna)
+                'type_id' => 'nullable|exists:types,id'
             ],
             [
+                // ERRORI
                 'title.required' => 'Title field is required',
                 'title.unique' => "Project\'s title : $request->title has already been taken.",
                 'title.min' => 'The title field must have at least 5 characters',
                 'title.max' => 'The title field must have at least 50 characters',
                 'description.required' => 'Description field it cannot be empty',
                 'image.url' => 'Url is not Valid.',
-
+                'type_id' => 'Invalid Type'
             ]
         );
 
