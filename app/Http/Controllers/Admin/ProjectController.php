@@ -8,8 +8,9 @@ use App\Http\Controllers\Controller;
 // SUPPORT function str
 use illuminate\Support\Str;
 
-// MODEL
+// MODELS
 use App\Models\Project;
+use App\Models\Type;
 
 // REQUEST for FORMS DATA
 use Illuminate\Http\Request;
@@ -39,7 +40,11 @@ class ProjectController extends Controller
     {
         // FAKE EMPTY MODEL FOR FORM
         $project = new Project();
-        return view('admin.projects.create', compact('project'));
+
+        //MODEL FOR FORM tutte in ordine alfabetico (sottinteso)
+        $types = Type::orderBy('label')->get();
+
+        return view('admin.projects.create', compact('project', 'types'));
     }
 
     /**
@@ -83,8 +88,6 @@ class ProjectController extends Controller
 
         $project->fill($data);
 
-
-
         $project->save();
 
         return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('New project created successfully');
@@ -103,7 +106,10 @@ class ProjectController extends Controller
      */
     public function edit(project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        //MODEL FOR FORM tutte in ordine alfabetico (sottinteso)
+        $types = Type::orderBy('label')->get();
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
