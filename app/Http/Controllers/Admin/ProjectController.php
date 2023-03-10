@@ -125,7 +125,7 @@ class ProjectController extends Controller
                 // UNIQUE IN THE PROJECTS TABLE and IGNORE PROJECT ID
                 'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id), 'min:5', 'max:50'],
                 'description' => 'required|string',
-                'image' => 'nullable|url',
+                'image' => 'nullable|image|mimes:jpeg,jpg,png',
                 // Controllo se esiste quell'id sulla tabella Types  (esiste:tabella,colonna)
                 'type_id' => 'nullable|exists:types,id'
             ],
