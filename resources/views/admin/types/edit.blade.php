@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Update Operation')
+@section('title', 'Modify Type')
 
 @section('content')
-<h1>Edit Project</h1>
-@include('includes.projects.form')
+<h1>Edit Type</h1>
+@include('includes.types.form')
 @endsection

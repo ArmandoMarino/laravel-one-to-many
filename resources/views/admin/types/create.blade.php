@@ -5,5 +5,5 @@
 @section('content')
 <h1 class="mt-3">Make new Project</h1>
 {{-- Include FORM --}}
-@include('includes.projects.form')
+@include('includes.types.form')
 @endsection

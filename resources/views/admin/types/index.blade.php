@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Projects')
+@section('title', 'Types')
 
 @section('content')
 <header class="d-flex align-items-center justify-content-between">
-  <h1>Projects List</h1>
+  <h1>Types List</h1>
   {{-- LINK TO CREATE --}}
-  <a href="{{route('admin.projects.create')}}" class="btn btn-small btn-warning">Create new Project</a>
+  <a href="{{route('admin.types.create')}}" class="btn btn-small btn-warning">Create new Type</a>
 </header>
 
 {{-- TABLE --}}
@@ -14,10 +14,8 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Slug</th>
-        <th scope="col">Type</th>
-        <th scope="col">Status</th>
+        <th scope="col">Label</th>
+        <th scope="col">Color</th>
         <th scope="col">Created at</th>
         <th scope="col">Updated at</th>
         <th>Control Panel</th>
@@ -25,44 +23,21 @@
     </thead>
 
     <tbody>
-        @forelse($projects as $project)
+        @forelse($types as $type)
         <tr>
-            <th scope="row">{{$project->id }}</th>
-            <td>{{$project->title }}</td>
-            <td>{{$project->slug }}</td>
-            {{--! Il ? NULLSAFE OPERATOR che impesice la rottura in caso di dato NULL dal DB --}}
-            {{-- {{$project->type?->label}} --}}
-            <td>
-              @if ($project->type)
-              <span style="background-color : {{$project->type->color}}" class="badge">{{$project->type?->label}}</span>
-              @else
-              @endif
-            </td>
-            <td>
-              <form method="POST" action="{{route('admin.projects.toggle', $project->id)}}">
-                @method('PATCH')
-                @csrf
-                <button type="submit" class="btn">
-                  <i class="fa-solid fa-toggle-{{$project->is_published ? 'on' : 'off'}}  {{$project->is_published ? 'text-success' : 'text-danger'}} " ></i>
-                </button>
-              </form>
-            </td>
-            {{-- <td>{{$project->is_published ? 'Published' : 'Not Published' }}</td> --}}
-            <td>{{$project->created_at }}</td>
-            <td>{{$project->updated_at }}</td>
+            <th scope="row">{{$type->id }}</th>
+            <td>{{$type->label }}</td>
+            <td>{{$type->color }}</td>
+            <td>{{$type->created_at }}</td>
+            <td>{{$type->updated_at }}</td>
             <td class="d-flex">
-                {{-- ROUTE TO SHOW --}}
-                <a class="btn btn-small btn-primary" href="{{route('admin.projects.show', $project->id)}}">
-                    <i class="fa-solid fa-eye"></i>
-                </a>
-
-                {{-- BOTTON TO PROJECTS EDIT --}}
-                <a class="btn btn-warning mx-2" href="{{route('admin.projects.edit', $project->id)}}">
+                {{-- BOTTON TO types EDIT --}}
+                <a class="btn btn-warning mx-2" href="{{route('admin.types.edit', $type->id)}}">
                   <i class=" fa-solid fa-pencil"></i>
                 </a>
 
                 {{-- BUTTON DELETE --}}
-                <form action="{{route('admin.projects.destroy', $project->id)}}" method="POST" class="delete-form" data-entity='Project'>
+                <form action="{{route('admin.types.destroy', $type->id)}}" method="POST" class="delete-form" data-entity='type'>
                   @method('DELETE')
                   {{-- TOKEN --}}
                   @csrf
@@ -74,31 +49,29 @@
           </tr>
         @empty
         <tr>
-            <td scope='row' colspan="5">Non ci sono Progetti</td>
+            <td scope='row' colspan="5">No Types found</td>
         </tr>
         @endforelse
     </tbody>
   </table>
 
-  <div class="row">
+  {{-- <div class="row">
     @foreach ($types as  $type)
     <div class="col">
       <h3>{{$type->label }}</h3>
-      <p> ({{ count($type->projects) }}) </p>
-      {{-- Per ogni Type nel Projects come Project --}}
-      @foreach ($type->projects as  $project)
-         <a href="{{route('admin.projects.show', $project->id )}}">{{ $project->title }}</a> 
+      <p> ({{ count($type->types) }}) </p>
+      Per ogni Type nel types come type
+      @foreach ($type->types as  $type)
+         <a href="{{route('admin.types.show', $type->id )}}">{{ $type->title }}</a> 
       @endforeach
     </div>
-
     @endforeach
+  </div> --}}
 
-  </div>
-
-  {{-- PAGINATION se project ha la pagination  --}}
+  {{-- PAGINATION se type ha la pagination  --}}
   <div class="d-flex">
-    @if($projects->hasPages())
-      {{$projects->links() }}
+    @if($types->hasPages())
+      {{$types->links() }}
     @endif
   </div>
 @endsection
