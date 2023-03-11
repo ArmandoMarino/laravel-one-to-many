@@ -14,7 +14,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = Type::paginate(10);
         return view('admin.types.index', compact('types'));
     }
 
@@ -50,7 +50,7 @@ class TypeController extends Controller
 
         $type->save();
 
-        return to_route('admin.types.show', $type->id)->with('type', 'success')->with('message', "$type->label created successfully");
+        return to_route('admin.types.index', $type->id)->with('type', 'success')->with('message', "$type->label created successfully");
     }
 
     /**
@@ -58,7 +58,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        return view('admin.types.show', compact('type'));
+        return to_route('admin.types.index');
     }
 
     /**
@@ -66,7 +66,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('admin.types.edit', compact('type'))
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -75,7 +75,7 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $request->validate([
-            'label' => ['required','string',Rule::unique('types')->ignore($type->id),'max:15'],
+            'label' => ['required', 'string', Rule::unique('types')->ignore($type->id), 'max:15'],
             'color' => 'nullable|string|size:7'
         ], [
             'label.required' => 'Type select is required',
@@ -88,7 +88,7 @@ class TypeController extends Controller
 
         $type->update($data);
 
-        return to_route('admin.types.show', $type->id)->with('type', 'success')->with('message', "$type->label updated successfully");
+        return to_route('admin.types.index', $type->id)->with('type', 'success')->with('message', 'Type updated successfully');
     }
 
     /**
