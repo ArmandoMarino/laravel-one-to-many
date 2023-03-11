@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(
 
     // PROJECTS ROUTES
     Route::resource('projects', ProjectController::class);
+
+    // TYPES ROUTES
+    Route::resource('types', TypeController::class);
 
     // CHECKBOX ROUTE with custom function on controller
     Route::patch('/projects/{project}/toggle', [ProjectController::class, 'togglePublishProject'])->name('projects.toggle');
