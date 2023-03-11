@@ -3,10 +3,23 @@
 @section('title', 'Projects')
 
 @section('content')
-<header class="d-flex align-items-center justify-content-between">
+
   <h1>Projects List</h1>
+  <header class="d-flex align-items-center justify-content-between">
+  {{-- FILTERS --}}
+  <div class="input-group">
+    <form action="{{route('admin.projects.index')}}" method="GET" class="d-flex justify-content-between">
+      <button class="btn btn-outline-secondary" type="submit">Filter</button>
+      <select class="form-select" name="filter-published" id="filter-published">
+        <option selected value="">All</option>
+        <option value="published">Published</option>
+        <option value="drafts">Drafts</option>
+      </select>
+    </form>
+  </div>
+  
   {{-- LINK TO CREATE --}}
-  <a href="{{route('admin.projects.create')}}" class="btn btn-small btn-warning">Create new Project</a>
+  <a href="{{route('admin.projects.create')}}" class="btn btn-sm btn-warning">Create new Project</a>
 </header>
 
 {{-- TABLE --}}

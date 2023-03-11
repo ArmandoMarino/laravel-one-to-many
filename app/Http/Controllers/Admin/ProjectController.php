@@ -26,10 +26,22 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Nella funzione metto il request per prendere il filtro published e lo prendo con la query
+        $filterPublish = $request->query('filter-published');
+
         // Paginator imported in RouteServiceProvider and later use function here, the number is the number of elements into page
-        $projects = Project::orderBy('updated_at', 'DESC')->simplePaginate(10);
+        $query = Project::orderBy('updated_at', 'DESC');
+
+        // Controllo il filtro e se la value è draft sara flaso altrimenti vero
+        if ($filterPublish) {
+            $value = $filterPublish === 'drafts' ? 0 : 1;
+            // Prenod la query where la colonna is publish sarà uguale alla value
+            $query->where('is_published', $value);
+        }
+
+        $projects = $query->Paginate(10);
 
         $types = Type::all();
 
