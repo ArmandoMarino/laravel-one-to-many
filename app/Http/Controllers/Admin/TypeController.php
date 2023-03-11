@@ -88,7 +88,7 @@ class TypeController extends Controller
 
         $type->update($data);
 
-        return to_route('admin.types.index', $type->id)->with('type', 'success')->with('message', 'Type updated successfully');
+        return to_route('admin.types.index', $type->id)->with('type', 'success')->with('message', "$type->label updated successfully");
     }
 
     /**
