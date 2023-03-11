@@ -186,7 +186,7 @@ class ProjectController extends Controller
         if ($project->image) Storage::delete($project->image);
 
         $project->delete();
-        return to_route('admin.projects.index')->with('type', 'success')->with('message', "Project : $project->title saved successfully.");
+        return to_route('admin.projects.index')->with('type', 'success')->with('message', "Project : $project->title deleted successfully.");
     }
 
 
