@@ -49,6 +49,7 @@
               @if ($project->type)
               <span style="background-color : {{$project->type->color}}" class="badge">{{$project->type?->label}}</span>
               @else
+              <h3>Undefined</h3>
               @endif
             </td>
             <td>
