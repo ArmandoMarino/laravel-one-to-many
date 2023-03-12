@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // // MUTATOR crypt passowrd
+    // // MUTATOR crypt passowrd is already on on default !!!!
     // protected function setPasswordAttribute($value)
     // {
     //     $this->attributes['password'] = bcrypt($value);
