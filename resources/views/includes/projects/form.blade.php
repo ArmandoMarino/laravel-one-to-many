@@ -88,7 +88,9 @@
         {{-- CHECKBOX PUBLISH --}}
         <div class="form-check form-switch">
             <input name="is_published" class="form-check-input" type="checkbox" role="switch" id="is_published" 
+            {{-- L'IF lo facciamo sul checked dentro l'input per l'old --}}
             @if (old('is_published', $project->is_published)) checked @endif>
+
             <label class="form-check-label" for="is_published">Published</label>
         </div>
 
